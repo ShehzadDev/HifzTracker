@@ -1,37 +1,51 @@
+// MainActivity.java
+
 package com.example.hifztracker;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 public class MainActivity extends AppCompatActivity {
 
-    private Button buttonNewEntry;
-    private Button buttonSearch;
+    Button entryBtn, searchBtn, gitBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        buttonNewEntry = findViewById(R.id.buttonNewEntry);
-        buttonSearch = findViewById(R.id.buttonSearch);
+        // Binding UI elements
+        entryBtn = findViewById(R.id.buttonNewEntry);
+        searchBtn = findViewById(R.id.buttonSearch);
+        gitBtn = findViewById(R.id.buttonGithub);
 
-        buttonNewEntry.setOnClickListener(new View.OnClickListener() {
+        entryBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, AddStudent.class));
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, AddStudent.class);
+                startActivity(intent);
             }
         });
 
-        buttonSearch.setOnClickListener(new View.OnClickListener() {
+        searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, SearchActivity.class));
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+                startActivity(intent);
+            }
+        });
 
+        gitBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String url = "https://github.com/";
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                startActivity(intent);
             }
         });
     }

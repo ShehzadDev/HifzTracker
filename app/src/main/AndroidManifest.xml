@@ -20,6 +20,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".AddStudent"
+            android:label="Add Student">
+        </activity>
+
+        <activity
+            android:name=".SearchActivity"
+            android:label="Search Activity">
+        </activity>
+
+
+
     </application>
 
 </manifest>

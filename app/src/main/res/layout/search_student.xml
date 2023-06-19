@@ -1,13 +1,15 @@
+<!-- search_student.xml -->
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
     <EditText
-        android:id="@+id/editTextSearchName"
+        android:id="@+id/editTextSearchId"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Search by Name" />
+        android:hint="Search by ID" />
 
     <Button
         android:id="@+id/buttonSearch"
@@ -15,9 +17,14 @@
         android:layout_height="wrap_content"
         android:text="Search" />
 
+    <Button
+        android:id="@+id/buttonDisplayAll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Display All" />
 
-    <RecyclerView
-        android:id="@+id/recyclerViewSearchResults"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />
