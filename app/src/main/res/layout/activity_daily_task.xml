@@ -1,0 +1,50 @@
+<!-- activity_daily_task.xml -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".DailyTaskActivity">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Task Details"
+        android:textSize="18sp"
+        android:layout_marginTop="16dp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/editTextSabaq"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Sabaq" />
+
+    <EditText
+        android:id="@+id/editTextSabaqi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Sabaqi" />
+
+    <EditText
+        android:id="@+id/editTextManzil"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Manzil" />
+
+    <Button
+        android:id="@+id/buttonAddTask"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Task"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="16dp" />
+
+</LinearLayout>

@@ -12,7 +12,7 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button entryBtn, searchBtn, gitBtn;
+    Button entryBtn, searchBtn, gitBtn, dailyTaskBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
         entryBtn = findViewById(R.id.buttonNewEntry);
         searchBtn = findViewById(R.id.buttonSearch);
         gitBtn = findViewById(R.id.buttonGithub);
+        dailyTaskBtn = findViewById(R.id.buttonDailyTask);
 
         entryBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,6 +46,14 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String url = "https://github.com/";
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                startActivity(intent);
+            }
+        });
+
+        dailyTaskBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, DailyTaskActivity.class);
                 startActivity(intent);
             }
         });
