@@ -9,16 +9,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentViewHolder> {
 
-    private List<Student> students = new ArrayList<>();
+    private List<Student> studentList;
 
-    public void setStudents(List<Student> students) {
-        this.students = students;
-        notifyDataSetChanged();
+    public StudentAdapter(List<Student> studentList) {
+        this.studentList = studentList;
     }
 
     @NonNull
@@ -30,37 +28,25 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
 
     @Override
     public void onBindViewHolder(@NonNull StudentViewHolder holder, int position) {
-        Student student = students.get(position);
-        holder.bind(student);
+        Student student = studentList.get(position);
+        holder.textViewName.setText(student.getName());
+        holder.textViewAge.setText(String.valueOf(student.getAge()));
+        holder.textViewClass.setText(student.getClassName());
     }
 
     @Override
     public int getItemCount() {
-        return students.size();
+        return studentList.size();
     }
 
     public static class StudentViewHolder extends RecyclerView.ViewHolder {
-        private TextView textViewId;
-        private TextView textViewName;
-        private TextView textViewAge;
-        private TextView textViewClass;
-        private TextView textViewTasks;
+        TextView textViewName, textViewAge, textViewClass;
 
-        public StudentViewHolder(@NonNull View itemView) {
+        public StudentViewHolder(View itemView) {
             super(itemView);
-            textViewId = itemView.findViewById(R.id.textViewId);
             textViewName = itemView.findViewById(R.id.textViewName);
             textViewAge = itemView.findViewById(R.id.textViewAge);
             textViewClass = itemView.findViewById(R.id.textViewClass);
-            textViewTasks = itemView.findViewById(R.id.textViewTasks);
-        }
-
-        public void bind(Student student) {
-            textViewId.setText("ID: " + student.getId());
-            textViewName.setText("Name: " + student.getName());
-            textViewAge.setText("Age: " + student.getAge());
-            textViewClass.setText("Class: " + student.getClassName());
-            textViewTasks.setText("Tasks: " + student.getTasks());
         }
     }
 }

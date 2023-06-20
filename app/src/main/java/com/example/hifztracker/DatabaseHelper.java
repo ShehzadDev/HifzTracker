@@ -1,5 +1,5 @@
-// DatabaseHelper.java
 package com.example.hifztracker;
+
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
@@ -18,7 +18,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_NAME = "name";
     private static final String COLUMN_AGE = "age";
     private static final String COLUMN_CLASS = "class";
-    private static final String COLUMN_TASK = "task";
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -30,8 +29,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + COLUMN_ID + " INTEGER PRIMARY KEY,"
                 + COLUMN_NAME + " TEXT,"
                 + COLUMN_AGE + " INTEGER,"
-                + COLUMN_CLASS + " TEXT,"
-                + COLUMN_TASK + " TEXT"
+                + COLUMN_CLASS + " TEXT"
                 + ")";
         db.execSQL(CREATE_TABLE);
     }
@@ -50,16 +48,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COLUMN_NAME, student.getName());
         values.put(COLUMN_AGE, student.getAge());
         values.put(COLUMN_CLASS, student.getClassName());
-        values.put(COLUMN_TASK, student.getTasks());
 
         db.insert(TABLE_NAME, null, values);
         db.close();
     }
 
-    public Student searchStudent(int id) {
+    public List<Student> searchStudent(int id) {
+        List<Student> students = new ArrayList<>();
+
         SQLiteDatabase db = this.getReadableDatabase();
 
-        String[] projection = {COLUMN_ID, COLUMN_NAME, COLUMN_AGE, COLUMN_CLASS, COLUMN_TASK};
+        String[] projection = {COLUMN_ID, COLUMN_NAME, COLUMN_AGE, COLUMN_CLASS};
         String selection = COLUMN_ID + "=?";
         String[] selectionArgs = {String.valueOf(id)};
 
@@ -69,23 +68,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             int columnIndexName = cursor.getColumnIndex(COLUMN_NAME);
             int columnIndexAge = cursor.getColumnIndex(COLUMN_AGE);
             int columnIndexClass = cursor.getColumnIndex(COLUMN_CLASS);
-            int columnIndexTask = cursor.getColumnIndex(COLUMN_TASK);
 
-            if (columnIndexId >= 0 && columnIndexName >= 0 && columnIndexAge >= 0 && columnIndexClass >= 0 && columnIndexTask >= 0) {
-                int sid = cursor.getInt(columnIndexId);
-                String name = cursor.getString(columnIndexName);
-                int age = cursor.getInt(columnIndexAge);
-                String className = cursor.getString(columnIndexClass);
-                String tasks = cursor.getString(columnIndexTask);
+            do {
+                if (columnIndexId >= 0 && columnIndexName >= 0 && columnIndexAge >= 0 && columnIndexClass >= 0) {
+                    int sid = cursor.getInt(columnIndexId);
+                    String name = cursor.getString(columnIndexName);
+                    int age = cursor.getInt(columnIndexAge);
+                    String className = cursor.getString(columnIndexClass);
 
-                Student student = new Student(sid, name, age, className);
-                cursor.close();
-                return student;
-            }
+                    students.add(new Student(sid, name, age, className));
+                }
+            } while (cursor.moveToNext());
         }
 
         cursor.close();
-        return null;
+        db.close();
+
+        return students;
     }
 
     public List<Student> getAllStudents() {
@@ -102,11 +101,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 @SuppressLint("Range") String name = cursor.getString(cursor.getColumnIndex(COLUMN_NAME));
                 @SuppressLint("Range") int age = cursor.getInt(cursor.getColumnIndex(COLUMN_AGE));
                 @SuppressLint("Range") String className = cursor.getString(cursor.getColumnIndex(COLUMN_CLASS));
-                @SuppressLint("Range") String tasks = cursor.getString(cursor.getColumnIndex(COLUMN_TASK));
                 students.add(new Student(id, name, age, className));
             } while (cursor.moveToNext());
         }
-
 
         cursor.close();
         db.close();
