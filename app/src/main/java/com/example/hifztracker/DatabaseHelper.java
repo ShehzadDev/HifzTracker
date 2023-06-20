@@ -1,6 +1,7 @@
+// DatabaseHelper.java
+
 package com.example.hifztracker;
 
-import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -18,6 +19,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_NAME = "name";
     private static final String COLUMN_AGE = "age";
     private static final String COLUMN_CLASS = "class";
+    private static final String TABLE_TASKS = "tasks";
+    private static final String COLUMN_TASK_ID = "task_id";
+    private static final String COLUMN_TASK_STUDENT_ID = "student_id";
+    private static final String COLUMN_SABAQ = "sabaq";
+    private static final String COLUMN_SABAQI = "sabaqi";
+    private static final String COLUMN_MANZIL = "manzil";
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -25,18 +32,28 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME + "("
+        String CREATE_STUDENTS_TABLE = "CREATE TABLE " + TABLE_NAME + "("
                 + COLUMN_ID + " INTEGER PRIMARY KEY,"
                 + COLUMN_NAME + " TEXT,"
                 + COLUMN_AGE + " INTEGER,"
                 + COLUMN_CLASS + " TEXT"
                 + ")";
-        db.execSQL(CREATE_TABLE);
+        db.execSQL(CREATE_STUDENTS_TABLE);
+
+        String CREATE_TASKS_TABLE = "CREATE TABLE " + TABLE_TASKS + "("
+                + COLUMN_TASK_ID + " INTEGER PRIMARY KEY,"
+                + COLUMN_TASK_STUDENT_ID + " INTEGER,"
+                + COLUMN_SABAQ + " TEXT,"
+                + COLUMN_SABAQI + " TEXT,"
+                + COLUMN_MANZIL + " TEXT"
+                + ")";
+        db.execSQL(CREATE_TASKS_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_TASKS);
         onCreate(db);
     }
 
@@ -97,10 +114,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         if (cursor.moveToFirst()) {
             do {
-                @SuppressLint("Range") int id = cursor.getInt(cursor.getColumnIndex(COLUMN_ID));
-                @SuppressLint("Range") String name = cursor.getString(cursor.getColumnIndex(COLUMN_NAME));
-                @SuppressLint("Range") int age = cursor.getInt(cursor.getColumnIndex(COLUMN_AGE));
-                @SuppressLint("Range") String className = cursor.getString(cursor.getColumnIndex(COLUMN_CLASS));
+                int id = cursor.getInt(cursor.getColumnIndex(COLUMN_ID));
+                String name = cursor.getString(cursor.getColumnIndex(COLUMN_NAME));
+                int age = cursor.getInt(cursor.getColumnIndex(COLUMN_AGE));
+                String className = cursor.getString(cursor.getColumnIndex(COLUMN_CLASS));
                 students.add(new Student(id, name, age, className));
             } while (cursor.moveToNext());
         }
@@ -109,5 +126,45 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
 
         return students;
+    }
+
+    public boolean insertTaskDetails(int selectedStudentId, String sabaq, String sabaqi, String manzil) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_TASK_STUDENT_ID, selectedStudentId);
+        values.put(COLUMN_SABAQ, sabaq);
+        values.put(COLUMN_SABAQI, sabaqi);
+        values.put(COLUMN_MANZIL, manzil);
+
+        long result = db.insert(TABLE_TASKS, null, values);
+        db.close();
+
+        return result != -1;
+    }
+
+    public List<DailyTask> getAllDailyTasks() {
+        List<DailyTask> dailyTasks = new ArrayList<>();
+
+        String sql = "SELECT * FROM " + TABLE_TASKS;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(sql, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                int id = cursor.getInt(cursor.getColumnIndex(COLUMN_TASK_ID));
+                int studentId = cursor.getInt(cursor.getColumnIndex(COLUMN_TASK_STUDENT_ID));
+                String sabaq = cursor.getString(cursor.getColumnIndex(COLUMN_SABAQ));
+                String sabaqi = cursor.getString(cursor.getColumnIndex(COLUMN_SABAQI));
+                String manzil = cursor.getString(cursor.getColumnIndex(COLUMN_MANZIL));
+                dailyTasks.add(new DailyTask(id, studentId, sabaq, sabaqi, manzil));
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+
+        return dailyTasks;
     }
 }

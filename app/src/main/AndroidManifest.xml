@@ -26,6 +26,11 @@
         </activity>
 
         <activity
+            android:name=".DailyTaskActivity"
+            android:label="Daily Task">
+        </activity>
+
+        <activity
             android:name=".SearchActivity"
             android:label="Search Activity">
         </activity>

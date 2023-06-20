@@ -19,7 +19,7 @@ public class DailyTaskActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private DailyTaskAdapter dailyTaskAdapter;
-    private List<Student> studentList;
+    private List<DailyTask> dailyTaskList;
     private DatabaseHelper dbHelper;
     private EditText editTextSabaq;
     private EditText editTextSabaqi;
@@ -43,12 +43,12 @@ public class DailyTaskActivity extends AppCompatActivity {
 
         // Set up RecyclerView
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        studentList = new ArrayList<>();
-        dailyTaskAdapter = new DailyTaskAdapter(studentList);
+        dailyTaskList = new ArrayList<>();
+        dailyTaskAdapter = new DailyTaskAdapter(dailyTaskList);
         recyclerView.setAdapter(dailyTaskAdapter);
 
-        // Fetch all student records from the database
-        fetchStudentRecords();
+        // Fetch all daily task records from the database
+        fetchDailyTaskRecords();
 
         buttonAddTask.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,8 +58,8 @@ public class DailyTaskActivity extends AppCompatActivity {
                 String sabaqi = editTextSabaqi.getText().toString().trim();
                 String manzil = editTextManzil.getText().toString().trim();
 
-                // Get the selected student's ID
-                int selectedStudentId = dailyTaskAdapter.getSelectedStudentId();
+                // TODO: Get the selected student's ID
+                int selectedStudentId = 0;
 
                 // Insert task details into the tasks table
                 boolean isTaskInserted = dbHelper.insertTaskDetails(selectedStudentId, sabaq, sabaqi, manzil);
@@ -74,12 +74,14 @@ public class DailyTaskActivity extends AppCompatActivity {
         });
     }
 
-    private void fetchStudentRecords() {
+    private void fetchDailyTaskRecords() {
         try {
-            studentList = dbHelper.getAllStudents();
-            dailyTaskAdapter.setStudents(studentList);
+            // TODO: Fetch all daily task records from the database using dbHelper
+            dailyTaskList = new ArrayList<>(); // Replace this with actual fetched daily task list
+            dailyTaskAdapter = new DailyTaskAdapter(dailyTaskList);
+            recyclerView.setAdapter(dailyTaskAdapter);
         } catch (Exception e) {
-            Toast.makeText(this, "An error occurred while fetching student records", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "An error occurred while fetching daily task records", Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
     }
