@@ -33,6 +33,7 @@ public class DailyTaskAdapter extends RecyclerView.Adapter<DailyTaskAdapter.View
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         DailyTask dailyTask = dailyTaskList.get(position);
         holder.textViewStudentId.setText("ID: " + String.valueOf(dailyTask.getStudentId()));
+        holder.textdailyTask.setText("Date: "+dailyTask.getdate());
         holder.textViewSabaq.setText("Sabaq : "+dailyTask.getSabaq());
         holder.textViewSabaqi.setText("Sabaqi : "+dailyTask.getSabaqi());
         holder.textViewManzil.setText("Manzil : "+dailyTask.getManzil());
@@ -49,12 +50,15 @@ public class DailyTaskAdapter extends RecyclerView.Adapter<DailyTaskAdapter.View
         TextView textViewSabaqi;
         TextView textViewManzil;
 
+        TextView textdailyTask;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             textViewStudentId = itemView.findViewById(R.id.textViewId);
             textViewSabaq = itemView.findViewById(R.id.textViewSabaq);
             textViewSabaqi = itemView.findViewById(R.id.textViewSabaqi);
             textViewManzil = itemView.findViewById(R.id.textViewManzil);
+            textdailyTask=itemView.findViewById(R.id.textdailyTask);
         }
     }
 }

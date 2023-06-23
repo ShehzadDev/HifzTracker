@@ -14,6 +14,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "StudentDB";
     private static final String TABLE_NAME = "students";
+    private static final String COLUMN_DATE = "date";
     private static final String COLUMN_ID = "id";
     private static final String COLUMN_NAME = "name";
     private static final String COLUMN_AGE = "age";
@@ -44,7 +45,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + COLUMN_TASK_STUDENT_ID + " INTEGER,"
                 + COLUMN_SABAQ + " TEXT,"
                 + COLUMN_SABAQI + " TEXT,"
-                + COLUMN_MANZIL + " TEXT"
+                + COLUMN_MANZIL + " TEXT,"
+                + COLUMN_DATE + " TEXT DEFAULT CURRENT_DATE"
                 + ")";
         db.execSQL(CREATE_TASKS_TABLE);
     }
@@ -158,7 +160,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 @SuppressLint("Range") String sabaq = cursor.getString(cursor.getColumnIndex(COLUMN_SABAQ));
                 @SuppressLint("Range") String sabaqi = cursor.getString(cursor.getColumnIndex(COLUMN_SABAQI));
                 @SuppressLint("Range") String manzil = cursor.getString(cursor.getColumnIndex(COLUMN_MANZIL));
-                dailyTasks.add(new DailyTask(id, studentId, sabaq, sabaqi, manzil));
+                @SuppressLint("Range") String date = cursor.getString(cursor.getColumnIndex(COLUMN_DATE));
+                dailyTasks.add(new DailyTask(id, studentId, sabaq, sabaqi, manzil,date));
             } while (cursor.moveToNext());
         }
 

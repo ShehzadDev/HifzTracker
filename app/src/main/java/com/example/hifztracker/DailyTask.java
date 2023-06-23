@@ -7,16 +7,23 @@ public class DailyTask {
     private String sabaqi;
     private String manzil;
 
-    public DailyTask(int id, int studentId, String sabaq, String sabaqi, String manzil) {
+    private String date;
+
+    public DailyTask(int id, int studentId, String sabaq, String sabaqi, String manzil, String date) {
         this.id = id;
         this.studentId = studentId;
         this.sabaq = sabaq;
         this.sabaqi = sabaqi;
         this.manzil = manzil;
+        this.date=date;
     }
 
     public int getId() {
         return id;
+    }
+
+    public String getdate() {
+        return date;
     }
 
     public int getStudentId() {
