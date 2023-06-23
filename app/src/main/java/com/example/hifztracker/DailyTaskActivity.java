@@ -56,13 +56,14 @@ public class DailyTaskActivity extends AppCompatActivity {
             public void onClick(View v) {
                 try {
                     // Get the entered task details
-                    studentid = Integer.parseInt(editStudentID.getText().toString().trim());
+                    String studentIdText = editStudentID.getText().toString().trim();
+                    studentid = Integer.parseInt(studentIdText);
                     String sabaq = editTextSabaq.getText().toString().trim();
                     String sabaqi = editTextSabaqi.getText().toString().trim();
                     String manzil = editTextManzil.getText().toString().trim();
 
                     // TODO: Get the selected student's ID
-                    int selectedStudentId = 0;
+                    int selectedStudentId = studentid;
 
                     // Insert task details into the tasks table
                     boolean isTaskInserted = dbHelper.insertTaskDetails(selectedStudentId, sabaq, sabaqi, manzil);
@@ -87,7 +88,7 @@ public class DailyTaskActivity extends AppCompatActivity {
     private void fetchDailyTaskRecords() {
         try {
             // Fetch all daily task records from the database using dbHelper
-            dailyTaskList = dbHelper.getAllDailyTasks(studentid);
+            dailyTaskList = dbHelper.getAllDailyTasks();
             dailyTaskAdapter.setTaskList(dailyTaskList);
             dailyTaskAdapter.notifyDataSetChanged();
         } catch (Exception e) {

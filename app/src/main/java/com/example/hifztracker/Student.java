@@ -5,14 +5,12 @@ public class Student {
     private String name;
     private int age;
     private String className;
-    private String tasks;
 
     public Student(int id, String name, int age, String className) {
         this.id = id;
         this.name = name;
         this.age = age;
         this.className = className;
-        this.tasks = tasks;
     }
 
     public int getId() {
@@ -31,8 +29,5 @@ public class Student {
         return className;
     }
 
-    public String getTasks() {
-        return tasks;
-    }
 }
 

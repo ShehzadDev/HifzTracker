@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
+
 public class SearchActivity extends AppCompatActivity {
 
     private EditText editTextSearch;

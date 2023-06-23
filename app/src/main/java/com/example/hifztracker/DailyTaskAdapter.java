@@ -32,10 +32,10 @@ public class DailyTaskAdapter extends RecyclerView.Adapter<DailyTaskAdapter.View
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         DailyTask dailyTask = dailyTaskList.get(position);
-        holder.textViewStudentId.setText("ID: " + dailyTask.getStudentId());
-        holder.textViewSabaq.setText(dailyTask.getSabaq());
-        holder.textViewSabaqi.setText(dailyTask.getSabaqi());
-        holder.textViewManzil.setText(dailyTask.getManzil());
+        holder.textViewStudentId.setText("ID: " + String.valueOf(dailyTask.getStudentId()));
+        holder.textViewSabaq.setText("Sabaq : "+dailyTask.getSabaq());
+        holder.textViewSabaqi.setText("Sabaqi : "+dailyTask.getSabaqi());
+        holder.textViewManzil.setText("Manzil : "+dailyTask.getManzil());
     }
 
     @Override

@@ -80,12 +80,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         Cursor cursor = db.query(TABLE_NAME, projection, selection, selectionArgs, null, null, null);
         if (cursor.moveToFirst()) {
-            int columnIndexId = cursor.getColumnIndex(COLUMN_ID);
-            int columnIndexName = cursor.getColumnIndex(COLUMN_NAME);
-            int columnIndexAge = cursor.getColumnIndex(COLUMN_AGE);
-            int columnIndexClass = cursor.getColumnIndex(COLUMN_CLASS);
-
             do {
+                int columnIndexId = cursor.getColumnIndex(COLUMN_ID);
+                int columnIndexName = cursor.getColumnIndex(COLUMN_NAME);
+                int columnIndexAge = cursor.getColumnIndex(COLUMN_AGE);
+                int columnIndexClass = cursor.getColumnIndex(COLUMN_CLASS);
+
                 if (columnIndexId >= 0 && columnIndexName >= 0 && columnIndexAge >= 0 && columnIndexClass >= 0) {
                     int sid = cursor.getInt(columnIndexId);
                     String name = cursor.getString(columnIndexName);
@@ -103,12 +103,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return students;
     }
 
+
     public List<Student> getAllStudents() {
         List<Student> students = new ArrayList<>();
 
         String sql = "SELECT * FROM " + TABLE_NAME;
 
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(sql, null);
 
         if (cursor.moveToFirst()) {
@@ -142,7 +143,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return result != -1;
     }
 
-    public List<DailyTask> getAllDailyTasks(int studentid) {
+    public List<DailyTask> getAllDailyTasks() {
         List<DailyTask> dailyTasks = new ArrayList<>();
 
         String sql = "SELECT * FROM " + TABLE_TASKS;

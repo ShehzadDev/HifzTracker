@@ -1,4 +1,3 @@
-// StudentAdapter.java
 package com.example.hifztracker;
 
 import android.view.LayoutInflater;
@@ -28,10 +27,15 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
 
     @Override
     public void onBindViewHolder(@NonNull StudentViewHolder holder, int position) {
-        Student student = studentList.get(position);
-        holder.textViewName.setText(student.getName());
-        holder.textViewAge.setText(String.valueOf(student.getAge()));
-        holder.textViewClass.setText(student.getClassName());
+        try {
+            Student student = studentList.get(position);
+            holder.textViewId.setText("ID : "+String.valueOf(student.getId()));
+            holder.textViewName.setText("Name : "+student.getName());
+            holder.textViewAge.setText("Age : "+String.valueOf(student.getAge()));
+            holder.textViewClass.setText("Class : "+student.getClassName());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -40,10 +44,11 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
     }
 
     public static class StudentViewHolder extends RecyclerView.ViewHolder {
-        TextView textViewName, textViewAge, textViewClass;
+        TextView textViewName, textViewAge, textViewClass,textViewId;
 
         public StudentViewHolder(View itemView) {
             super(itemView);
+            textViewId=itemView.findViewById(R.id.textViewId);
             textViewName = itemView.findViewById(R.id.textViewName);
             textViewAge = itemView.findViewById(R.id.textViewAge);
             textViewClass = itemView.findViewById(R.id.textViewClass);
