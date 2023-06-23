@@ -1,5 +1,3 @@
-// DailyTaskAdapter.java
-
 package com.example.hifztracker;
 
 import android.view.LayoutInflater;
@@ -12,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class DailyTaskAdapter extends RecyclerView.Adapter<DailyTaskAdapter.DailyTaskViewHolder> {
+public class DailyTaskAdapter extends RecyclerView.Adapter<DailyTaskAdapter.ViewHolder> {
 
     private List<DailyTask> dailyTaskList;
 
@@ -20,16 +18,21 @@ public class DailyTaskAdapter extends RecyclerView.Adapter<DailyTaskAdapter.Dail
         this.dailyTaskList = dailyTaskList;
     }
 
+    public void setTaskList(List<DailyTask> taskList) {
+        this.dailyTaskList = taskList;
+    }
+
     @NonNull
     @Override
-    public DailyTaskViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_daily_task, parent, false);
-        return new DailyTaskViewHolder(view);
+        return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull DailyTaskViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         DailyTask dailyTask = dailyTaskList.get(position);
+        holder.textViewStudentId.setText("ID: " + dailyTask.getStudentId());
         holder.textViewSabaq.setText(dailyTask.getSabaq());
         holder.textViewSabaqi.setText(dailyTask.getSabaqi());
         holder.textViewManzil.setText(dailyTask.getManzil());
@@ -40,13 +43,15 @@ public class DailyTaskAdapter extends RecyclerView.Adapter<DailyTaskAdapter.Dail
         return dailyTaskList.size();
     }
 
-    public class DailyTaskViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        TextView textViewStudentId;
         TextView textViewSabaq;
         TextView textViewSabaqi;
         TextView textViewManzil;
 
-        public DailyTaskViewHolder(View itemView) {
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            textViewStudentId = itemView.findViewById(R.id.textViewId);
             textViewSabaq = itemView.findViewById(R.id.textViewSabaq);
             textViewSabaqi = itemView.findViewById(R.id.textViewSabaqi);
             textViewManzil = itemView.findViewById(R.id.textViewManzil);

@@ -1,5 +1,3 @@
-<!-- item_student.xml -->
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -7,20 +5,39 @@
     android:padding="16dp">
 
     <TextView
-        android:id="@+id/textViewName"
+        android:id="@+id/textViewId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:textSize="18sp" />
+        android:text="ID: "
+        android:textSize="16sp"
+        android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/textViewAge"
+        android:id="@+id/textViewStudentId"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:textSize="14sp" />
 
     <TextView
-        android:id="@+id/textViewClass"
+        android:id="@+id/textViewSabaq"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="Sabaq"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textViewSabaqi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sabaqi"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/textViewManzil"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Manzil"
+        android:textSize="14sp" />
 
 </LinearLayout>

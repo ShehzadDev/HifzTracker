@@ -1,5 +1,3 @@
-<!-- activity_daily_task.xml -->
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,44 +5,58 @@
     android:orientation="vertical"
     tools:context=".DailyTaskActivity">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
-
+    <!-- Task Details TextView -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Task Details"
         android:textSize="18sp"
-        android:layout_marginTop="16dp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:layout_marginTop="16dp" />
 
+    <!-- Student ID EditText -->
+    <EditText
+        android:id="@+id/editStudentID"
+        android:layout_width="match_parent"
+        android:layout_height="59dp"
+        android:hint="Student ID" />
+
+    <!-- Sabaq EditText -->
     <EditText
         android:id="@+id/editTextSabaq"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="64dp"
         android:hint="Sabaq" />
 
+    <!-- Sabaqi EditText -->
     <EditText
         android:id="@+id/editTextSabaqi"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="75dp"
         android:hint="Sabaqi" />
 
+    <!-- Manzil EditText -->
     <EditText
         android:id="@+id/editTextManzil"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="67dp"
         android:hint="Manzil" />
 
+    <!-- Add Task Button -->
     <Button
         android:id="@+id/buttonAddTask"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Add Task"
         android:layout_gravity="center_horizontal"
+        android:layout_marginTop="16dp" />
+
+    <!-- RecyclerView -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:layout_marginTop="16dp" />
 
 </LinearLayout>

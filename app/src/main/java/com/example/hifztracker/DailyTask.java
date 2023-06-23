@@ -1,5 +1,3 @@
-// DailyTask.java
-
 package com.example.hifztracker;
 
 public class DailyTask {

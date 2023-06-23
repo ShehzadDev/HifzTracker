@@ -1,5 +1,3 @@
-// DailyTaskActivity.java
-
 package com.example.hifztracker;
 
 import android.os.Bundle;
@@ -17,12 +15,14 @@ import java.util.List;
 
 public class DailyTaskActivity extends AppCompatActivity {
 
+    private int studentid;
     private RecyclerView recyclerView;
     private DailyTaskAdapter dailyTaskAdapter;
     private List<DailyTask> dailyTaskList;
     private DatabaseHelper dbHelper;
     private EditText editTextSabaq;
     private EditText editTextSabaqi;
+    private EditText editStudentID;
     private EditText editTextManzil;
     private Button buttonAddTask;
 
@@ -32,7 +32,7 @@ public class DailyTaskActivity extends AppCompatActivity {
         setContentView(R.layout.activity_daily_task);
 
         // Initialize views
-        recyclerView = findViewById(R.id.recyclerView);
+        editStudentID=findViewById(R.id.editStudentID);
         editTextSabaq = findViewById(R.id.editTextSabaq);
         editTextSabaqi = findViewById(R.id.editTextSabaqi);
         editTextManzil = findViewById(R.id.editTextManzil);
@@ -42,6 +42,7 @@ public class DailyTaskActivity extends AppCompatActivity {
         dbHelper = new DatabaseHelper(this);
 
         // Set up RecyclerView
+        recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         dailyTaskList = new ArrayList<>();
         dailyTaskAdapter = new DailyTaskAdapter(dailyTaskList);
@@ -53,22 +54,31 @@ public class DailyTaskActivity extends AppCompatActivity {
         buttonAddTask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Get the entered task details
-                String sabaq = editTextSabaq.getText().toString().trim();
-                String sabaqi = editTextSabaqi.getText().toString().trim();
-                String manzil = editTextManzil.getText().toString().trim();
+                try {
+                    // Get the entered task details
+                    studentid = Integer.parseInt(editStudentID.getText().toString().trim());
+                    String sabaq = editTextSabaq.getText().toString().trim();
+                    String sabaqi = editTextSabaqi.getText().toString().trim();
+                    String manzil = editTextManzil.getText().toString().trim();
 
-                // TODO: Get the selected student's ID
-                int selectedStudentId = 0;
+                    // TODO: Get the selected student's ID
+                    int selectedStudentId = 0;
 
-                // Insert task details into the tasks table
-                boolean isTaskInserted = dbHelper.insertTaskDetails(selectedStudentId, sabaq, sabaqi, manzil);
+                    // Insert task details into the tasks table
+                    boolean isTaskInserted = dbHelper.insertTaskDetails(selectedStudentId, sabaq, sabaqi, manzil);
 
-                if (isTaskInserted) {
-                    Toast.makeText(DailyTaskActivity.this, "Task details added successfully", Toast.LENGTH_SHORT).show();
-                    clearTaskFields();
-                } else {
-                    Toast.makeText(DailyTaskActivity.this, "Failed to add task details", Toast.LENGTH_SHORT).show();
+                    if (isTaskInserted) {
+                        Toast.makeText(DailyTaskActivity.this, "Task details added successfully", Toast.LENGTH_SHORT).show();
+                        clearTaskFields();
+                        fetchDailyTaskRecords(); // Refresh the task list
+                    } else {
+                        Toast.makeText(DailyTaskActivity.this, "Failed to add task details", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (NumberFormatException e) {
+                    Toast.makeText(DailyTaskActivity.this, "Invalid Student ID", Toast.LENGTH_SHORT).show();
+                } catch (Exception e) {
+                    Toast.makeText(DailyTaskActivity.this, "An error occurred", Toast.LENGTH_SHORT).show();
+                    e.printStackTrace();
                 }
             }
         });
@@ -76,10 +86,10 @@ public class DailyTaskActivity extends AppCompatActivity {
 
     private void fetchDailyTaskRecords() {
         try {
-            // TODO: Fetch all daily task records from the database using dbHelper
-            dailyTaskList = new ArrayList<>(); // Replace this with actual fetched daily task list
-            dailyTaskAdapter = new DailyTaskAdapter(dailyTaskList);
-            recyclerView.setAdapter(dailyTaskAdapter);
+            // Fetch all daily task records from the database using dbHelper
+            dailyTaskList = dbHelper.getAllDailyTasks(studentid);
+            dailyTaskAdapter.setTaskList(dailyTaskList);
+            dailyTaskAdapter.notifyDataSetChanged();
         } catch (Exception e) {
             Toast.makeText(this, "An error occurred while fetching daily task records", Toast.LENGTH_SHORT).show();
             e.printStackTrace();

@@ -1,7 +1,6 @@
-// DatabaseHelper.java
-
 package com.example.hifztracker;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -114,10 +113,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         if (cursor.moveToFirst()) {
             do {
-                int id = cursor.getInt(cursor.getColumnIndex(COLUMN_ID));
-                String name = cursor.getString(cursor.getColumnIndex(COLUMN_NAME));
-                int age = cursor.getInt(cursor.getColumnIndex(COLUMN_AGE));
-                String className = cursor.getString(cursor.getColumnIndex(COLUMN_CLASS));
+                @SuppressLint("Range") int id = cursor.getInt(cursor.getColumnIndex(COLUMN_ID));
+                @SuppressLint("Range") String name = cursor.getString(cursor.getColumnIndex(COLUMN_NAME));
+                @SuppressLint("Range") int age = cursor.getInt(cursor.getColumnIndex(COLUMN_AGE));
+                @SuppressLint("Range") String className = cursor.getString(cursor.getColumnIndex(COLUMN_CLASS));
                 students.add(new Student(id, name, age, className));
             } while (cursor.moveToNext());
         }
@@ -143,7 +142,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return result != -1;
     }
 
-    public List<DailyTask> getAllDailyTasks() {
+    public List<DailyTask> getAllDailyTasks(int studentid) {
         List<DailyTask> dailyTasks = new ArrayList<>();
 
         String sql = "SELECT * FROM " + TABLE_TASKS;
@@ -153,11 +152,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         if (cursor.moveToFirst()) {
             do {
-                int id = cursor.getInt(cursor.getColumnIndex(COLUMN_TASK_ID));
-                int studentId = cursor.getInt(cursor.getColumnIndex(COLUMN_TASK_STUDENT_ID));
-                String sabaq = cursor.getString(cursor.getColumnIndex(COLUMN_SABAQ));
-                String sabaqi = cursor.getString(cursor.getColumnIndex(COLUMN_SABAQI));
-                String manzil = cursor.getString(cursor.getColumnIndex(COLUMN_MANZIL));
+                @SuppressLint("Range") int id = cursor.getInt(cursor.getColumnIndex(COLUMN_TASK_ID));
+                @SuppressLint("Range") int studentId = cursor.getInt(cursor.getColumnIndex(COLUMN_TASK_STUDENT_ID));
+                @SuppressLint("Range") String sabaq = cursor.getString(cursor.getColumnIndex(COLUMN_SABAQ));
+                @SuppressLint("Range") String sabaqi = cursor.getString(cursor.getColumnIndex(COLUMN_SABAQI));
+                @SuppressLint("Range") String manzil = cursor.getString(cursor.getColumnIndex(COLUMN_MANZIL));
                 dailyTasks.add(new DailyTask(id, studentId, sabaq, sabaqi, manzil));
             } while (cursor.moveToNext());
         }

@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         gitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String url = "https://github.com/";
+                String url = "https://github.com/ShehzadDev/HifzTracke";
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                 startActivity(intent);
             }
